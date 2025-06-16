@@ -1,0 +1,227 @@
+{
+  "name": "Working with date and time",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -420,
+        480
+      ],
+      "typeVersion": 1,
+      "id": "00b3b5f9-faf8-4ec4-93b3-bad5f380c6de"
+    },
+    {
+      "parameters": {
+        "content": "## 2. Advanced way: Using Expressions\nIn this `Set` node, we set dates using [Luxon expressions](https://docs.n8n.io/code-examples/expressions/luxon/) for the following formats:\n\nNow - `{{$now}}`\nCurrent time with seconds - `{{$now.toLocaleString(DateTime.TIME_WITH_SECONDS)}}`\nToday - `{{$today}}`\nTomorrow - `{{$today.plus({days: 1})}}`\nOne hour ago - `{{$now.minus({hours: 1})}}`\nWeekday name - `{{$today.weekdayLong}}`\n\n",
+        "height": 400,
+        "width": 560
+      },
+      "name": "Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        460
+      ],
+      "typeVersion": 1,
+      "id": "7ced75f6-93d7-4840-9ff4-24d3c2ff6cf7"
+    },
+    {
+      "parameters": {
+        "content": "### Click the `Execute Workflow` button and double click on the nodes to see the input and output items.",
+        "height": 100,
+        "width": 420
+      },
+      "name": "Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -900,
+        480
+      ],
+      "typeVersion": 1,
+      "id": "8dfee1af-90e7-4824-8f74-9c58553df266"
+    },
+    {
+      "parameters": {
+        "action": "calculate",
+        "value": "={{$now}}",
+        "duration": 12,
+        "timeUnit": "hours",
+        "options": {}
+      },
+      "name": "12 Hours from now",
+      "type": "n8n-nodes-base.dateTime",
+      "position": [
+        -40,
+        280
+      ],
+      "typeVersion": 1,
+      "id": "891c1253-6352-406f-9957-fa202abd70ac"
+    },
+    {
+      "parameters": {
+        "content": "## 1. Simple Way: Using the Date & Time node\nThere are two actions available within the `Date & Time` node:\n1. Calculating a date - adding/substracting minutes,hours, days, etc.\n2. Formatting a date\n\n",
+        "height": 340,
+        "width": 560
+      },
+      "name": "Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        100
+      ],
+      "typeVersion": 1,
+      "id": "c2db4e3f-0a73-4ce8-88fd-3ac7ae47c49f"
+    },
+    {
+      "parameters": {
+        "content": "### 2.1 Working with an existing time string\nAs items pass between nodes, n8n saves dates as ISO strings. This means that in order to work with the data as a date again, we need to convert it back using `DateTime.fromISO('yyyy-mm-dd')`\n. Once doing that, we are able to apply date and time function again such as : `{{DateTime.fromISO($json[\"Now\"]).toFormat('yyyy LLL dd')}}`",
+        "height": 320,
+        "width": 480
+      },
+      "name": "Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        420,
+        560
+      ],
+      "typeVersion": 1,
+      "id": "92868110-3e73-4456-a83b-7c3c17aa9cc4"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Current time",
+              "value": "={{DateTime.fromISO($json[\"Now\"])}}"
+            },
+            {
+              "name": "Current time formatted",
+              "value": "={{DateTime.fromISO($json[\"Now\"]).toFormat('yyyy LLL dd')}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Edit times",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        520,
+        720
+      ],
+      "typeVersion": 1,
+      "id": "f0ef9289-6d11-4de1-802c-53f779c76299"
+    },
+    {
+      "parameters": {
+        "value": "={{$now}}",
+        "toFormat": "MMMM DD YYYY",
+        "options": {}
+      },
+      "name": "Format - MMMM DD YY",
+      "type": "n8n-nodes-base.dateTime",
+      "position": [
+        200,
+        280
+      ],
+      "typeVersion": 1,
+      "id": "39f3dcd6-56bb-42db-b35a-c45fe36826fe"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "Now",
+              "value": "={{$now}}"
+            },
+            {
+              "name": "Current time with seconds",
+              "value": "={{$now.toLocaleString(DateTime.TIME_WITH_SECONDS)}}"
+            },
+            {
+              "name": "Today",
+              "value": "={{$today}}"
+            },
+            {
+              "name": "Tomorrow",
+              "value": "={{$today.plus({days: 1})}}"
+            },
+            {
+              "name": "One hour from now",
+              "value": "={{$now.minus({hours: 1})}}"
+            },
+            {
+              "name": "Weekday",
+              "value": "={{$today.weekdayLong}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set times",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -40,
+        720
+      ],
+      "typeVersion": 1,
+      "id": "14144062-df50-4fa8-8a4b-2de8f197d6bc"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "12 Hours from now": {
+      "main": [
+        [
+          {
+            "node": "Format - MMMM DD YY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "12 Hours from now",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set times",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set times": {
+      "main": [
+        [
+          {
+            "node": "Edit times",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dc25069e-313d-40e7-996a-28fec8dbadb7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8f42723d854102a22f8b6314b06bbb38f4b6e259798e3ba1bfd90033d4266ea4"
+  },
+  "id": "ZXuJnUv865roMw7q",
+  "tags": []
+}
