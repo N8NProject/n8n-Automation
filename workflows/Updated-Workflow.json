@@ -1,0 +1,179 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -340,
+        380
+      ],
+      "typeVersion": 1,
+      "id": "f1303204-ae46-4d68-bcf7-6db99f5aadad"
+    },
+    {
+      "parameters": {
+        "content": "## 2. Advanced way: Using Expressions\nIn this `Set` node, we set dates using [Luxon expressions](https://docs.n8n.io/code-examples/expressions/luxon/) for the following formats:\n\nNow - `{{$now}}`\nCurrent time with seconds - `{{$now.toLocaleString(DateTime.TIME_WITH_SECONDS)}}`\nToday - `{{$today}}`\nTomorrow - `{{$today.plus({days: 1})}}`\nOne hour ago - `{{$now.minus({hours: 1})}}`\nWeekday name - `{{$today.weekdayLong}}`\n\n",
+        "height": 400,
+        "width": 560
+      },
+      "name": "Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        360
+      ],
+      "typeVersion": 1,
+      "id": "b1a79ca0-1543-42d2-9fa6-76bd899e83a3"
+    },
+    {
+      "parameters": {
+        "content": "### Click the `Execute Workflow` button and double click on the nodes to see the input and output items.",
+        "height": 100,
+        "width": 420
+      },
+      "name": "Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -820,
+        380
+      ],
+      "typeVersion": 1,
+      "id": "f09afe6b-f058-40f0-a384-91685dbb529b"
+    },
+    {
+      "parameters": {
+        "action": "calculate",
+        "value": "={{$now}}",
+        "duration": 12,
+        "timeUnit": "hours",
+        "options": {}
+      },
+      "name": "12 Hours from now",
+      "type": "n8n-nodes-base.dateTime",
+      "position": [
+        40,
+        180
+      ],
+      "typeVersion": 1,
+      "id": "0382535c-0cc8-4382-a610-b9bfd4eb82e0"
+    },
+    {
+      "parameters": {
+        "content": "## 1. Simple Way: Using the Date & Time node\nThere are two actions available within the `Date & Time` node:\n1. Calculating a date - adding/substracting minutes,hours, days, etc.\n2. Formatting a date\n\n",
+        "height": 340,
+        "width": 560
+      },
+      "name": "Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "f9568b14-2afd-4e41-a7dd-67909c80590c"
+    },
+    {
+      "parameters": {
+        "value": "={{$now}}",
+        "toFormat": "MMMM DD YYYY",
+        "options": {}
+      },
+      "name": "Format - MMMM DD YY",
+      "type": "n8n-nodes-base.dateTime",
+      "position": [
+        280,
+        180
+      ],
+      "typeVersion": 1,
+      "id": "565f452d-857f-4b7f-8aa1-e653811723ad"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "Now",
+              "value": "={{$now}}"
+            },
+            {
+              "name": "Current time with seconds",
+              "value": "={{$now.toLocaleString(DateTime.TIME_WITH_SECONDS)}}"
+            },
+            {
+              "name": "Today",
+              "value": "={{$today}}"
+            },
+            {
+              "name": "Tomorrow",
+              "value": "={{$today.plus({days: 1})}}"
+            },
+            {
+              "name": "One hour from now",
+              "value": "={{$now.minus({hours: 1})}}"
+            },
+            {
+              "name": "Weekday",
+              "value": "={{$today.weekdayLong}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Set times",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        40,
+        620
+      ],
+      "typeVersion": 1,
+      "id": "33c4dc97-4c36-49e4-b490-e76f1f3b1761"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "12 Hours from now": {
+      "main": [
+        [
+          {
+            "node": "Format - MMMM DD YY",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "12 Hours from now",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set times",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set times": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f0d44013-077d-4888-8b90-2090cd03ba2d",
+  "meta": {
+    "instanceId": "24e42445c4d4c2c46a5e080007d2f6f5eabeef9e5657067d6c7c84f762cb76ab"
+  },
+  "id": "ODyDv0PZ3AVByGFw",
+  "tags": []
+}
